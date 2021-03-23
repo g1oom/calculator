@@ -3,24 +3,35 @@
     <head>
         <title>Calculator</title>
         <link href='css/styles.css' rel='stylesheet'>
-        <script src='script.js'></script>
+        <script src='script.js' async></script>
     </head>
     <body>
-        <button class='number' type='button'>0</button>
-        <button class='number' type='button'>1</button>
-        <button class='number' type='button'>2</button>
-        <button class='number' type='button'>3</button>
-        <button class='number' type='button'>4</button>
-        <button class='number' type='button'>5</button>
-        <button class='number' type='button'>6</button>
-        <button class='number' type='button'>7</button>
-        <button class='number' type='button'>8</button>
-        <button class='number' type='button'>9</button>
-        <button class='operator' type='button'>+</button>
-        <button class='operator' type='button'>-</button>
-        <button class='operator' type='button'>*</button>
-        <button class='operator' type='button'>/</button>
-        <button class='equal' type='button'>=</button>
-        <button class='clear' type='button'>clear</button>
+        <main class='calculator-body'>
+            <section class='calculator-display'>
+                0
+            </section>
+            <section class='calculator-button'>
+                <section class='number'>
+                    <button type='button'>0</button>
+                    <button type='button'>1</button>
+                    <button type='button'>2</button>
+                    <button type='button'>3</button>
+                    <button type='button'>4</button>
+                    <button type='button'>5</button>
+                    <button type='button'>6</button>
+                    <button type='button'>7</button>
+                    <button type='button'>8</button>
+                    <button type='button'>9</button>
+                </section>
+                <section class='operator'>
+                    <button type='button'>+</button>
+                    <button type='button'>-</button>
+                    <button type='button'>*</button>
+                    <button type='button'>/</button>
+                </section>
+                <button class='equal' type='button'>=</button>
+                <button class='clear' type='button'>clear</button>
+            </section>
+        </main>
     </body>
 </html>
