@@ -12,19 +12,40 @@ function multiply(a, b) {
 
 function divide(a, b) {
     if (b == 0) {
+        if (a == 0) {
+            return "Error";
+        }
         return "Infinity";
     } else {
-        return a / b;
+        // count number of digits to check whether decimal place needs to be rounded
+        let answer = a / b;
+        if (Math.floor(answer) !== answer) {
+            let digitCount = answer.toString().split('.').join('').length;
+            if (digitCount > 12) {
+                let dp = 12 - answer.toString().split('.')[0].length;
+                answer = answer.toFixed(dp);
+            }
+        }
+        return answer;
     }
 }
 
 function operate(num1, operator, num2) {
-    // check for calculating infinity
+    // check for calculations involving infinity
     if (num1 == "Infinity") {
+        if (num2 == '0' && operator == '*') {
+            return "Error";
+        }
         return "Infinity";
     }
-    num1 = parseInt(num1);
-    num2 = parseInt(num2);
+
+    // check for calculations involving error
+    if (num1 == "Error") {
+        return "Error";
+    }
+
+    num1 = Number(num1);
+    num2 = Number(num2);
     if (operator == '+') {
         return add(num1, num2);
     } else if (operator == '-') {
@@ -33,8 +54,6 @@ function operate(num1, operator, num2) {
         return multiply(num1, num2);
     } else if (operator == '/') {
         return divide(num1, num2);
-    } else {
-        return "invalid";
     }
 }
 
@@ -63,13 +82,18 @@ function update_display_num(num_input) {
 function update_display_op(op_input) {
     let current_num = document.querySelector('.calculator-display').innerText;
 
-    // store previous results to saved_num and show answer if operate can be called
-    if (!last_key.match(/[\+\-\*\/]/)) {
-        if (saved_num == null) {
-            saved_num = parseInt(current_num);
-        } else {
-            saved_num = operate(saved_num, saved_op, current_num);
-            document.querySelector('.calculator-display').innerText = saved_num;
+    if (last_key == null) {
+        // if first button pressed is operator, assume first number is 0
+        saved_num = current_num.toString();
+    } else {
+        // store previous results to saved_num and show answer if operate can be called
+        if (!last_key.match(/[\+\-\*\/]/)) {
+            if (saved_num == null) {
+                saved_num = current_num.toString(); // saved_num is stored in string format to account for Infinity and Error
+            } else {
+                saved_num = operate(saved_num, saved_op, current_num);
+                document.querySelector('.calculator-display').innerText = saved_num;
+            }
         }
     }
 
@@ -122,4 +146,4 @@ let saved_num = null;
 let saved_op = null;
 let last_key = null;
 
-// check divide by 0 = Infinity wonky results (NaN appearing)
+// todo: when result is error, reset everything, but still display error instead of 0
