@@ -2,6 +2,7 @@ html, body {
     margin: 0;
     padding: 0;
 }
+
 .calculator-body {
     height: 500px;
     max-width: 400px;
@@ -19,7 +20,7 @@ html, body {
     "zero zero decimal equal";
 }
 
-.calculator-display {
+.calculator-display-outer {
     font-family: "Courier New";
     grid-area: display;
     text-align: right;
@@ -28,7 +29,10 @@ html, body {
     font-size: 25px;
     padding: 40px 5px 0 0;
     overflow: hidden;
-    direction: rtl;
+}
+
+.calculator-display-inner {
+    float: right;
 }
 
 button {

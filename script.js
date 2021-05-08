@@ -53,7 +53,7 @@ function operate(num1, operator, num2) {
 }
 
 function update_display_num(num_input) {
-    let current_num = document.querySelector('.calculator-display').innerText;
+    let current_num = document.querySelector('.calculator-display-inner').innerText;
 
     if (current_num != "Error") {
         // if last key pressed was operator, refresh display
@@ -71,13 +71,13 @@ function update_display_num(num_input) {
             current_num += num_input;
         }
 
-        document.querySelector('.calculator-display').innerText = current_num;
+        document.querySelector('.calculator-display-inner').innerText = current_num;
         last_key = num_input;
     }
 }
 
 function update_display_op(op_input) {
-    let current_num = document.querySelector('.calculator-display').innerText;
+    let current_num = document.querySelector('.calculator-display-inner').innerText;
 
     if (current_num != "Error") {
         if (last_key == null) {
@@ -90,7 +90,7 @@ function update_display_op(op_input) {
                     saved_num = current_num.toString(); // saved_num is stored in string format to account for Infinity and Error
                 } else {
                     saved_num = operate(saved_num, saved_op, current_num);
-                    document.querySelector('.calculator-display').innerText = saved_num;
+                    document.querySelector('.calculator-display-inner').innerText = saved_num;
                 }
             }
         }
@@ -108,7 +108,7 @@ function update_display_op(op_input) {
 }
 
 function update_display_decimal() {
-    let current_num = document.querySelector('.calculator-display').innerText;
+    let current_num = document.querySelector('.calculator-display-inner').innerText;
     if (current_num != "Error") {
         // if last key pressed was operator, refresh display
         if ((last_key != null) && (last_key.match(/[\+\-\*\/\=]/))) {
@@ -125,18 +125,18 @@ function update_display_decimal() {
             }
         }
 
-        document.querySelector('.calculator-display').innerText = current_num;
+        document.querySelector('.calculator-display-inner').innerText = current_num;
         last_key = '.';
     }
 }
 
 function update_display_equal() {
-    let current_num = document.querySelector('.calculator-display').innerText;
+    let current_num = document.querySelector('.calculator-display-inner').innerText;
 
     if (current_num != "Error") {
         // check if operate can be called
         if ((!isNaN(last_key)) && (saved_num != null)) {
-            document.querySelector('.calculator-display').innerText = operate(saved_num, saved_op, current_num);
+            document.querySelector('.calculator-display-inner').innerText = operate(saved_num, saved_op, current_num);
             // after last operation, refresh saved variables
             saved_num = null;
             saved_op = null;
@@ -147,7 +147,7 @@ function update_display_equal() {
 }
 
 function update_display_clear() {
-    document.querySelector('.calculator-display').innerText = '0';
+    document.querySelector('.calculator-display-inner').innerText = '0';
     saved_num = null;
     saved_op = null;
     last_key = null;
