@@ -1,0 +1,115 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+.calculator-body {
+    height: 500px;
+    max-width: 400px;
+    margin: 50px auto;
+    display: grid;
+    gap: 10px 10px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-areas: 
+    "display display display display"
+    "clear clear clear obelus"
+    "seven eight nine times"
+    "four five six minus"
+    "one two three plus"
+    "zero zero decimal equal";
+}
+
+.calculator-display {
+    font-family: "Courier New";
+    grid-area: display;
+    text-align: right;
+    border: 1px solid grey;
+    border-radius: 2px;
+    font-size: 25px;
+    padding: 40px 5px 0 0;
+    overflow: hidden;
+    direction: rtl;
+}
+
+button {
+    font-family: "Courier New";
+    background-color: #EDEDED;
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: #E3E3E3;
+}
+
+button:active {
+    border: 1px solid black;
+}
+
+#zero {
+    grid-area: zero;
+}
+
+#one {
+    grid-area: one;
+}
+
+#two {
+    grid-area: two;
+}
+
+#three {
+    grid-area: three;
+}
+
+#four {
+    grid-area: four;
+}
+
+#five {
+    grid-area: five;
+}
+
+#six {
+    grid-area: six;
+}
+
+#seven {
+    grid-area: seven;
+}
+
+#eight {
+    grid-area: eight;
+}
+
+#nine {
+    grid-area: nine;
+}
+
+#plus {
+    grid-area: plus;
+}
+
+#minus {
+    grid-area: minus;
+}
+
+#times {
+    grid-area: times;
+}
+
+#obelus {
+    grid-area: obelus;
+}
+
+.decimal {
+    grid-area: decimal;
+}
+
+.equal {
+    grid-area: equal;
+}
+
+.clear {
+    grid-area: clear;
+}

@@ -153,12 +153,12 @@ function update_display_clear() {
     last_key = null;
 }
 
-let numbers = document.querySelectorAll('.number > button');
+let numbers = document.querySelectorAll('.number');
 numbers.forEach(number => number.addEventListener('click', function() {
     update_display_num(number.innerText);
 }));
 
-let operators = document.querySelectorAll('.operator > button');
+let operators = document.querySelectorAll('.operator');
 operators.forEach(operator => operator.addEventListener('click', function() {
     update_display_op(operator.innerText);
 }));
@@ -181,5 +181,3 @@ clear.addEventListener('click', function() {
 let saved_num = null;
 let saved_op = null;
 let last_key = null;
-
-// todo: css time!
