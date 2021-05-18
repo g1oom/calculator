@@ -13,11 +13,11 @@ html, body {
     grid-template-rows: repeat(6, 1fr);
     grid-template-areas: 
     "display display display display"
-    "clear clear back obelus"
-    "seven eight nine times"
+    "clear back plusminus times"
+    "seven eight nine obelus"
     "four five six minus"
     "one two three plus"
-    "zero zero decimal equal";
+    "zero decimal equal plus";
 }
 
 .calculator-display-outer {
@@ -46,8 +46,8 @@ button:hover {
     background-color: #E3E3E3;
 }
 
-button:active {
-    border: 1px solid black;
+button:active, .active {
+    border: 2px solid black;
 }
 
 #zero {
@@ -108,6 +108,10 @@ button:active {
 
 .decimal {
     grid-area: decimal;
+}
+
+.plusminus {
+    grid-area: plusminus;
 }
 
 .equal {
