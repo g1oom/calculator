@@ -1,19 +1,19 @@
 html, body {
-    margin: 0;
+    margin: 50px;
     padding: 0;
 }
 
 .calculator-body {
     height: 500px;
-    max-width: 400px;
-    margin: 50px auto;
+    width: 400px;
+    margin: auto;
     display: grid;
     gap: 10px 10px;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(6, 1fr);
     grid-template-areas: 
     "display display display display"
-    "clear clear clear obelus"
+    "clear clear back obelus"
     "seven eight nine times"
     "four five six minus"
     "one two three plus"
@@ -116,4 +116,8 @@ button:active {
 
 .clear {
     grid-area: clear;
+}
+
+.back {
+    grid-area: back;
 }

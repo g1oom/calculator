@@ -3,7 +3,23 @@ function add(a, b) {
 }
 
 function subtract(a, b) {
-    return a - b;
+    // calculate number of decimal places of results
+    let dpA = 0;
+    let dpB = 0;
+    if (Math.floor(a) !== a) {
+        dpA = a.toString().split('.')[1].length;
+    }
+    if (Math.floor(b) !== b) {
+        dpB = b.toString().split('.')[1].length;
+    }
+
+    let dp = 0;
+    if (dpA >= dpB) {
+        dp = dpA;
+    } else {
+        dp = dpB;
+    }
+    return +(a - b).toFixed(dp);
 }
 
 function multiply(a, b) {
@@ -17,8 +33,9 @@ function divide(a, b) {
         }
         return "Infinity";
     } else {
-        // count number of digits to check whether decimal place needs to be rounded
         let answer = a / b;
+
+        // count number of digits to check whether decimal place needs to be rounded
         if (Math.floor(answer) !== answer) {
             let digitCount = answer.toString().split('.').join('').length;
             if (digitCount > 12) {
@@ -32,6 +49,7 @@ function divide(a, b) {
 
 function operate(num1, operator, num2) {
     // check for calculations involving infinity
+    num2 = Number(num2);
     if (num1 == "Infinity") {
         if (num2 == '0' && operator == '*') {
             return "Error";
@@ -40,14 +58,13 @@ function operate(num1, operator, num2) {
     }
 
     num1 = Number(num1);
-    num2 = Number(num2);
     if (operator == '+') {
         return add(num1, num2);
     } else if (operator == '-') {
         return subtract(num1, num2);
     } else if (operator == '*') {
         return multiply(num1, num2);
-    } else if (operator == '/') {
+    } else if (operator == '÷' || operator == '/') {
         return divide(num1, num2);
     }
 }
@@ -57,7 +74,7 @@ function update_display_num(num_input) {
 
     if (current_num != "Error") {
         // if last key pressed was operator, refresh display
-        if ((last_key != null) && (last_key.match(/[\+\-\*\/\=]/))) {
+        if ((last_key != null) && (last_key.match(/[\+\-\*\÷\/\=]/))) {
             current_num = num_input;
         }
 
@@ -85,7 +102,7 @@ function update_display_op(op_input) {
             saved_num = current_num.toString();
         } else {
             // store previous results to saved_num and show answer if operate can be called
-            if (!last_key.match(/[\+\-\*\/]/)) {
+            if (!last_key.match(/[\+\-\*\÷\/]/)) {
                 if (saved_num == null) {
                     saved_num = current_num.toString(); // saved_num is stored in string format to account for Infinity and Error
                 } else {
@@ -111,7 +128,7 @@ function update_display_decimal() {
     let current_num = document.querySelector('.calculator-display-inner').innerText;
     if (current_num != "Error") {
         // if last key pressed was operator, refresh display
-        if ((last_key != null) && (last_key.match(/[\+\-\*\/\=]/))) {
+        if ((last_key != null) && (last_key.match(/[\+\-\*\÷\/\=]/))) {
             current_num = "0.";
         } else {
             // check if there's already one decimal place in number
@@ -135,7 +152,7 @@ function update_display_equal() {
 
     if (current_num != "Error") {
         // check if operate can be called
-        if ((!isNaN(last_key)) && (saved_num != null)) {
+        if ((last_key.match(/[0-9\.]/)) && (saved_num != null)) {
             document.querySelector('.calculator-display-inner').innerText = operate(saved_num, saved_op, current_num);
             // after last operation, refresh saved variables
             saved_num = null;
@@ -151,6 +168,19 @@ function update_display_clear() {
     saved_num = null;
     saved_op = null;
     last_key = null;
+}
+
+function update_display_back() {
+    let current_num = document.querySelector('.calculator-display-inner').innerText;
+
+    if ((last_key != null) && (last_key.match(/[0-9\.]/))) {
+        if (current_num.length <= 1) {
+            current_num = '0';
+        } else {
+            current_num = current_num.slice(0, -1);
+        }
+        document.querySelector('.calculator-display-inner').innerText = current_num;
+    }
 }
 
 let numbers = document.querySelectorAll('.number');
@@ -178,6 +208,46 @@ clear.addEventListener('click', function() {
     update_display_clear();
 });
 
+let back = document.querySelector('.back');
+back.addEventListener('click', function() {
+    update_display_back();
+});
+
 let saved_num = null;
 let saved_op = null;
 let last_key = null;
+
+// keyboard support
+document.addEventListener('keydown', function(event) {
+    // prevent repeat
+    if (!event.repeat) {
+        // numbers
+        if (!isNaN(event.key)) {
+            update_display_num(event.key);
+        }
+
+        // operators
+        else if (event.key.match(/[\+\-\*\/]/)) {
+            update_display_op(event.key);
+        }
+
+        // decimal
+        else if (event.key === '.') {
+            update_display_decimal();
+        }
+
+        // equal
+        else if (event.key === '=' || event.key === "Enter") {
+            update_display_equal();
+        }
+
+        // clear
+        else if (event.key === 'c' || event.key === 'C') {
+            update_display_clear();
+        }
+        // back
+        else if (event.key === "Backspace") {
+            update_display_back();
+        }
+    }
+});
